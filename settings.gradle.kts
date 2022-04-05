@@ -28,3 +28,4 @@ refreshVersions {
 rootProject.name = "Hyrule Compendium"
 
 include(":app")
+include(":network")
