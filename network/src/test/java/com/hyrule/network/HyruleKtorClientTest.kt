@@ -18,7 +18,7 @@ class HyruleKtorClientTest {
 
     @Serializable
     data class DummyId(
-        @SerialName("id") val id: String
+        @SerialName("id") val id: String? = null
     )
 
     @Test
@@ -41,12 +41,23 @@ class HyruleKtorClientTest {
         assertEquals("https://botw-compendium.herokuapp.com/api/v2/bla", builtUrl)
     }
 
+    @Test
+    fun `it should not throw exception if extra content and id is not parsed`() = runBlocking {
+        val mockEngine = createMockSuccessResponse(response = """{"name":"1"}""")
+
+        val apiClient = HyruleKtorClient(mockEngine)
+        val dummyId: DummyId = apiClient().get()
+
+        assertEquals(null, dummyId.id)
+    }
+
     private fun createMockSuccessResponse(
+        response: String = """{"id":"42"}""",
         onRequest: (HttpRequestData) -> Unit = {}
     ) = MockEngine { request ->
         onRequest(request)
         respond(
-            content = ByteReadChannel("""{"id":"42"}"""),
+            content = ByteReadChannel(response),
             status = HttpStatusCode.OK,
             headers = headersOf(HttpHeaders.ContentType, "application/json")
         )
