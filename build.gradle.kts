@@ -8,6 +8,7 @@ buildscript {
         classpath(Android.tools.build.gradlePlugin)
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
         classpath("org.jetbrains.kotlin:kotlin-serialization:_")
+        classpath(AndroidX.navigation.safeArgsGradlePlugin)
     }
 }
 
