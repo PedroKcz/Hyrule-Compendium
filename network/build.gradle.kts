@@ -1,11 +1,5 @@
 plugins {
-    id("kotlin")
-    id("kotlinx-serialization")
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    id("hyrule.kotlin.library")
 }
 
 dependencies {

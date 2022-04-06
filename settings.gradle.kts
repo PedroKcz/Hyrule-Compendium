@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -19,13 +21,14 @@ dependencyResolutionManagement {
 }
 
 refreshVersions {
-    enableBuildSrcLibs()
     rejectVersionIf {
         candidate.stabilityLevel.isLessStableThan(current.stabilityLevel)
     }
 }
 
 rootProject.name = "Hyrule Compendium"
+
+includeBuild("plugins")
 
 include(":app")
 include(":network")

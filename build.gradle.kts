@@ -1,14 +1,11 @@
-plugins {
-    id("com.android.application").apply(false)
-    id("com.android.library").apply(false)
-    id("org.jetbrains.kotlin.android").apply(false)
-}
-
 buildscript {
-    repositories { mavenCentral() }
+    repositories {
+        google()
+        mavenCentral()
+    }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:_")
+        classpath(Android.tools.build.gradlePlugin)
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
         classpath("org.jetbrains.kotlin:kotlin-serialization:_")
     }
