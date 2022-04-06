@@ -29,3 +29,5 @@ rootProject.name = "Hyrule Compendium"
 
 include(":app")
 include(":network")
+include(":features")
+include(":features:categories")
