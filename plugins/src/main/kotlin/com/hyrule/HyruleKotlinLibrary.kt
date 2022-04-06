@@ -1,5 +1,6 @@
 package com.hyrule
 
+import com.hyrule.config.detekt.implementDetekt
 import com.hyrule.config.kotlin.configureJVMVersion
 import com.hyrule.config.kotlin.implementKotlinLibs
 import com.hyrule.config.ktlint.implementKtLint
@@ -15,6 +16,7 @@ class HyruleKotlinLibrary : Plugin<Project> {
         target.configureJVMVersion()
         target.implementKotlinLibs()
         target.implementKtLint()
+        target.implementDetekt()
         target.implementUnitTesting()
     }
 

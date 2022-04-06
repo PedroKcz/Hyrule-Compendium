@@ -1,6 +1,7 @@
 package com.hyrule
 
 import com.hyrule.config.compose.implementCompose
+import com.hyrule.config.detekt.implementDetekt
 import com.hyrule.config.hyruleversion.configHyruleVersion
 import com.hyrule.config.kotlin.configureAndroidJVMVersion
 import com.hyrule.config.kotlin.implementKotlinLibs
@@ -23,6 +24,7 @@ class HyruleAndroidApplication : Plugin<Project> {
         target.implementKotlinLibs()
         target.implementCompose()
         target.implementKtLint()
+        target.implementDetekt()
         target.implementUnitTesting()
         target.implementIntegrationTesting()
     }

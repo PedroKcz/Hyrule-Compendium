@@ -1,0 +1,22 @@
+name: Kotlin Code Analysis
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
+
+      - run: |
+          echo "Running Ktlint"
+          bash ./gradlew ktlintCheck
+          echo "Running Detekt"
+          bash ./gradlew detekt
