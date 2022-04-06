@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -12,6 +10,7 @@ plugins {
     id("de.fayard.refreshVersions") version "0.40.1"
 }
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -34,3 +33,4 @@ include(":app")
 include(":network")
 include(":features")
 include(":features:categories")
+include(":design")
