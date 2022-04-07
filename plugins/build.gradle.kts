@@ -20,7 +20,7 @@ buildscript {
 
 dependencies {
     implementation("com.android.tools.build:gradle:7.1.2")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     implementation("org.jlleitschuh.gradle:ktlint-gradle:10.2.1")
     implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.20.0-RC2")
 }
