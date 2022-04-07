@@ -34,6 +34,7 @@ class CoroutinesTestRule(
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @ExperimentalCoroutinesApi
 open class ViewModelTestTemplate<T> {
 
