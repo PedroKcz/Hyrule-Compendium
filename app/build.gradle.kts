@@ -10,5 +10,4 @@ dependencies {
     implementation(project(":design"))
 
     testImplementation(Koin.test)
-    testImplementation(Testing.junit4)
 }
