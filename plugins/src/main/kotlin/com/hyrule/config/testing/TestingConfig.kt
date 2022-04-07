@@ -17,8 +17,6 @@ fun Project.implementUnitTesting() {
 
 fun Project.implementIntegrationTesting() {
     androidExtension {
-        buildTypes.getByName("debug") { isTestCoverageEnabled = true }
-
         defaultConfig {
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
