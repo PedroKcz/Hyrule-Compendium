@@ -1,6 +1,6 @@
 package com.hyrule.features.categories.presentation
 
-import com.hyrule.features.categories.domain.entity.CompendiumCategory
+import com.hyrule.features.categories.domain.CompendiumCategoryFixtures.dummyCategories
 import com.hyrule.features.categories.domain.usecase.GetCompendiumCategoriesUseCase
 import io.mockk.every
 import io.mockk.mockk
@@ -17,8 +17,6 @@ class CompendiumCategoriesViewModelTest : ViewModelTestTemplate<CompendiumCatego
     private val useCase = mockk<GetCompendiumCategoriesUseCase>()
     private lateinit var viewModel: CompendiumCategoriesViewModel
 
-    private val dummyList = listOf(CompendiumCategory("Food"))
-
     @Before
     fun setUp() {
         setStateSource { viewModel.state }
@@ -26,13 +24,11 @@ class CompendiumCategoriesViewModelTest : ViewModelTestTemplate<CompendiumCatego
 
     @Test
     fun `it should update state with categories`() {
-        given { every { useCase() } returns dummyList }
+        given { every { useCase() } returns dummyCategories }
 
         `when` { createViewModel() }
 
-        assertStateSequence(
-            CompendiumCategoriesState(dummyList)
-        )
+        assertStateSequence(CompendiumCategoriesState(dummyCategories))
     }
 
     private fun createViewModel() {
