@@ -9,4 +9,6 @@ dependencies {
     implementation(Koin.compose)
 
     implementation(project(":design"))
+
+    androidTestImplementation(Koin.junit4)
 }
