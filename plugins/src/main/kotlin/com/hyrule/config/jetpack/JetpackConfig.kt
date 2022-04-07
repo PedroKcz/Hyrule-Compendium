@@ -16,6 +16,7 @@ fun Project.implementDefaultJetpack() {
 private fun Project.implementCompose() {
     androidExtension {
         buildFeatures.compose = true
+        composeOptions.kotlinCompilerExtensionVersion = "1.1.1"
         defaultConfig.vectorDrawables {
             useSupportLibrary = true
         }
