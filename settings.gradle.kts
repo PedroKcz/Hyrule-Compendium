@@ -33,6 +33,7 @@ include(":app")
 
 include(":features")
 include(":features:categories")
+include(":features:category-entries")
 
 include(":design")
 
