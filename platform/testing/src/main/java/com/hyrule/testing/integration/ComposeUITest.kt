@@ -1,4 +1,4 @@
-package com.hyrule.features.categories.presentation
+package com.hyrule.testing.integration
 
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule

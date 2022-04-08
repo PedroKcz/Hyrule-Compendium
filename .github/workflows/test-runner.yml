@@ -42,7 +42,7 @@ jobs:
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run All Unit Tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew test
 
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2

@@ -38,3 +38,4 @@ include(":design")
 
 include(":platform")
 include(":platform:network")
+include(":platform:testing")

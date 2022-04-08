@@ -1,40 +1,14 @@
-package com.hyrule.features.categories.presentation
+package com.hyrule.testing.unit
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Rule
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
 
-@ExperimentalCoroutinesApi
-class CoroutinesTestRule(
-    private val dispatcher: TestDispatcher = UnconfinedTestDispatcher()
-) : TestWatcher() {
-
-    val scope = TestScope(dispatcher)
-
-    override fun starting(description: Description) {
-        super.starting(description)
-        Dispatchers.setMain(dispatcher)
-    }
-
-    override fun finished(description: Description) {
-        super.finished(description)
-        Dispatchers.resetMain()
-    }
-}
-
-@Suppress("UnusedPrivateMember")
 @ExperimentalCoroutinesApi
 open class ViewModelTestTemplate<T> {
 
@@ -44,7 +18,7 @@ open class ViewModelTestTemplate<T> {
     private lateinit var stateSource: () -> StateFlow<T>
 
     private var given: () -> Unit = {}
-    private var `when`: () -> Unit = {}
+    private var whenever: () -> Unit = {}
 
     fun setStateSource(state: () -> StateFlow<T>) {
         stateSource = state
@@ -58,14 +32,14 @@ open class ViewModelTestTemplate<T> {
         this.given = { rule.scope.given() }
     }
 
-    fun `when`(`when`: TestScope.() -> Unit) {
-        this.`when` = { rule.scope.`when`() }
+    fun whenever(whenever: TestScope.() -> Unit) {
+        this.whenever = { rule.scope.whenever() }
     }
 
     fun assertStateSequence(vararg states: T) = rule.scope.runTest {
         given()
 
-        `when`()
+        whenever()
 
         val results = mutableListOf<T>()
 
@@ -73,14 +47,14 @@ open class ViewModelTestTemplate<T> {
 
         job.cancel()
 
-        assertEquals(
+        Assert.assertEquals(
             "States emitted and tested are of different sizes",
             states.size,
             results.size
         )
 
         results.mapIndexed { index, value ->
-            assertEquals("Different state at index: $index", states[index], value)
+            Assert.assertEquals("Different state at index: $index", states[index], value)
         }
     }
 }

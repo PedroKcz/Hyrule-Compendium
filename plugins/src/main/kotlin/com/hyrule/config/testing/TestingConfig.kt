@@ -3,15 +3,16 @@ package com.hyrule.config.testing
 import com.hyrule.config.utils.androidExtension
 import com.hyrule.config.utils.androidTestImplementation
 import com.hyrule.config.utils.debugImplementation
-import com.hyrule.config.utils.implementation
+import com.hyrule.config.utils.testImplementation
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 fun Project.implementUnitTesting() {
     dependencies {
-        implementation("junit:junit:_")
-        implementation("io.mockk:mockk:_")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:_")
+        testImplementation("junit:junit:_")
+        testImplementation("io.mockk:mockk:_")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:_")
+        testImplementation(project(":platform:testing"))
     }
 }
 
@@ -23,6 +24,8 @@ fun Project.implementIntegrationTesting() {
     }
 
     dependencies {
+        androidTestImplementation(project(":platform:testing"))
+
         androidTestImplementation("androidx.compose.ui:ui-test-junit4:_")
         debugImplementation("androidx.compose.ui:ui-test-manifest:_")
 

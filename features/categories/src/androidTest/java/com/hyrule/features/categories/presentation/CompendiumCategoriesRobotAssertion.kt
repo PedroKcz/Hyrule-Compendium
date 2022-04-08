@@ -2,6 +2,7 @@ package com.hyrule.features.categories.presentation
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
+import com.hyrule.testing.integration.RobotAssertion
 
 class CompendiumCategoriesRobotAssertion : RobotAssertion() {
 
