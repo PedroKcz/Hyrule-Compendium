@@ -3,6 +3,7 @@ package com.hyrule.features.categories.presentation
 import androidx.navigation.compose.rememberNavController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.hyrule.features.categories.di.compendiumCategoriesModule
+import com.hyrule.testing.integration.ComposeUITest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

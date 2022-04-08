@@ -4,7 +4,7 @@ import com.hyrule.config.utils.androidExtension
 import org.gradle.api.Project
 
 object HyruleSdkVersion {
-    const val min: Int = 26
+    const val min: Int = 23
     const val target: Int = 32
 }
 

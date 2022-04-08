@@ -2,6 +2,7 @@ package com.hyrule.features.categories.presentation
 
 import com.hyrule.features.categories.domain.CompendiumCategoryFixtures.dummyCategories
 import com.hyrule.features.categories.domain.usecase.GetCompendiumCategoriesUseCase
+import com.hyrule.testing.unit.ViewModelTestTemplate
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +27,7 @@ class CompendiumCategoriesViewModelTest : ViewModelTestTemplate<CompendiumCatego
     fun `it should update state with categories`() {
         given { every { useCase() } returns dummyCategories }
 
-        `when` { createViewModel() }
+        whenever { createViewModel() }
 
         assertStateSequence(CompendiumCategoriesState(dummyCategories))
     }

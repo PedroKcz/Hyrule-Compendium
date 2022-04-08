@@ -30,7 +30,12 @@ rootProject.name = "Hyrule Compendium"
 includeBuild("plugins")
 
 include(":app")
-include(":network")
+
 include(":features")
 include(":features:categories")
+
 include(":design")
+
+include(":platform")
+include(":platform:network")
+include(":platform:testing")
