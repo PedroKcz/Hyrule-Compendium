@@ -11,11 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.hyrule.design.tokens.size.Size
 import com.hyrule.testing.integration.ComposeUITest
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class CollapseToolbarTest : ComposeUITest<CollapseToolbarRobot, CollapseToolbarRobotAssertion>(
     CollapseToolbarRobot(), CollapseToolbarRobotAssertion()
 ) {
