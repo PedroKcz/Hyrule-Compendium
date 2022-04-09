@@ -9,6 +9,10 @@ dependencies {
     implementation(Ktor.client.core)
     implementation(Ktor.client.serialization)
 
+    implementation(AndroidX.Room.runtime)
+    implementation(AndroidX.Room.ktx)
+    kapt(AndroidX.Room.compiler)
+
     implementation(project(":design"))
     implementation(project(":platform:network"))
     implementation(project(":platform:imageloader"))

@@ -52,9 +52,7 @@ class CompendiumCategoryEntriesViewModel(
         EntryModel(
             name = it.name,
             image = it.image,
-            locations = if (it.locations.isEmpty()) "" else it.locations.reduce { acc, location ->
-                if (acc.isBlank()) location else "$acc, $location"
-            }
+            locations = it.locations.joinToString(separator = ", ")
         )
     }
 
