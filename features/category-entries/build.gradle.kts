@@ -7,6 +7,7 @@ dependencies {
     implementation(Koin.compose)
 
     implementation(project(":design"))
+    implementation(project(":platform:imageloader"))
 
     androidTestImplementation(Koin.junit4)
 }
