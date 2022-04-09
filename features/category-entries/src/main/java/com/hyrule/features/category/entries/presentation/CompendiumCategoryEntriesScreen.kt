@@ -4,12 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -23,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
@@ -34,8 +40,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.hyrule.design.components.card.HyruleCard
 import com.hyrule.design.components.collapse.CollapseToolbar
 import com.hyrule.design.scene.Async
+import com.hyrule.design.scene.HyruleScene
 import com.hyrule.design.theme.HyruleTheme
 import com.hyrule.design.tokens.spacing.Spacing
 import com.hyrule.features.category.entries.R
@@ -58,6 +66,7 @@ fun CompendiumCategoryEntriesScreen(
 
     CompendiumCategoryEntries(
         state = state,
+        retry = { viewModel.interact(CompendiumCategoryEntriesAction.LoadData) },
         navBack = { navController.popBackStack() }
     )
 }
@@ -65,6 +74,7 @@ fun CompendiumCategoryEntriesScreen(
 @Composable
 private fun CompendiumCategoryEntries(
     state: CompendiumCategoryEntriesState,
+    retry: () -> Unit,
     navBack: () -> Unit
 ) {
     val headerHeight = 140.dp
@@ -85,16 +95,18 @@ private fun CompendiumCategoryEntries(
             modifier = Modifier.collapsable(),
         )
 
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(Spacing.medium),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(top = subHeaderHeight)
-                .fillMaxSize()
-                .expandable(),
-            contentPadding = PaddingValues(Spacing.medium)
-        ) {
-
+        HyruleScene(async = state.entries, retry = retry) {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(Spacing.medium),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(top = subHeaderHeight)
+                    .fillMaxSize()
+                    .expandable(),
+                contentPadding = PaddingValues(Spacing.medium)
+            ) {
+                items(it, key = { it.name }) { CategoryEntryCard(it) }
+            }
         }
     }
 }
@@ -202,11 +214,49 @@ private fun CategoryName(
     }
 }
 
+@Composable
+fun CategoryEntryCard(entry: Entry) {
+    HyruleCard(
+        shape = MaterialTheme.shapes.medium,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            ImageLoader(
+                url = entry.image,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .wrapContentWidth()
+                    .clip(MaterialTheme.shapes.medium)
+            )
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(Spacing.medium)
+            ) {
+                Text(
+                    text = entry.name,
+                    style = MaterialTheme.typography.h5,
+                    color = MaterialTheme.colors.onSurface
+                )
+
+                Text(
+                    text = entry.locations.reduce { acc, location -> "$location, $acc" },
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onSurface
+                )
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun CompendiumCategoryEntriesScreenPreview() {
     HyruleTheme(darkTheme = true) {
-        val entryPreview = Entry("Master Sword", "", listOf())
+        val entryPreview = Entry("Master Sword", "", listOf("Hyrule Field"))
 
         CompendiumCategoryEntries(
             state = CompendiumCategoryEntriesState(
@@ -219,7 +269,8 @@ fun CompendiumCategoryEntriesScreenPreview() {
                     )
                 )
             ),
-            navBack = { }
+            navBack = { },
+            retry = { }
         )
     }
 }
