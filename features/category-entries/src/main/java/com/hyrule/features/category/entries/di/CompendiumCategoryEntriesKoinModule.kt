@@ -18,7 +18,7 @@ val compendiumCategoryEntriesModule = module {
 
 fun Module.dataModule() {
     factory { LocalCategoryEntriesDataSource() }
-    factory { RemoteCategoryEntriesDataSource() }
+    factory { RemoteCategoryEntriesDataSource(get()) }
     factory<CategoryEntriesRepository> { CategoryEntriesRepositoryImpl(get(), get()) }
 }
 

@@ -7,12 +7,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,9 +45,10 @@ import com.hyrule.design.components.collapse.CollapseToolbar
 import com.hyrule.design.scene.Async
 import com.hyrule.design.scene.HyruleScene
 import com.hyrule.design.theme.HyruleTheme
+import com.hyrule.design.tokens.size.Size
 import com.hyrule.design.tokens.spacing.Spacing
 import com.hyrule.features.category.entries.R
-import com.hyrule.features.category.entries.domain.entity.Entry
+import com.hyrule.features.category.entries.presentation.model.EntryModel
 import com.hyrule.imageloader.ImageLoader
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -95,7 +96,13 @@ private fun CompendiumCategoryEntries(
             modifier = Modifier.collapsable(),
         )
 
-        HyruleScene(async = state.entries, retry = retry) {
+        HyruleScene(
+            async = state.entries,
+            retry = retry,
+            modifier = Modifier
+                .padding(top = subHeaderHeight)
+                .expandable()
+        ) {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(Spacing.medium),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -129,7 +136,8 @@ fun Banner(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(height + subHeaderHeight)
-                    .alpha(1 - collapsePercentage)
+                    .alpha(1 - collapsePercentage),
+                contentScale = ContentScale.Crop
             )
 
             CategoryName(
@@ -146,7 +154,7 @@ fun Banner(
                     .fillMaxWidth()
                     .alpha(collapsePercentage)
                     .align(Alignment.BottomCenter),
-                color = MaterialTheme.colors.onBackground.copy(alpha = 0.5f)
+                color = MaterialTheme.colors.onBackground.copy(alpha = 0.3f)
             )
         }
 
@@ -198,27 +206,33 @@ private fun CategoryName(
                 )
             )
     ) {
-        Text(
-            text = name,
-            maxLines = 1,
-            style = MaterialTheme.typography.h5,
-            color = MaterialTheme.colors.onBackground,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .fillMaxWidth()
-                .graphicsLayer {
-                    translationX = translationAmountPx.times(collapsePercentage)
-                }
-                .padding(all = Spacing.medium)
-        )
+        Box(
+            modifier = Modifier.align(Alignment.CenterStart)
+        ) {
+            Text(
+                text = name,
+                maxLines = 1,
+                style = MaterialTheme.typography.h5,
+                color = MaterialTheme.colors.onBackground,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .graphicsLayer {
+                        translationX = translationAmountPx.times(collapsePercentage)
+                    }
+                    .padding(horizontal = Spacing.medium)
+                    .align(Alignment.CenterStart)
+            )
+        }
     }
 }
 
 @Composable
-fun CategoryEntryCard(entry: Entry) {
+fun CategoryEntryCard(entry: EntryModel) {
     HyruleCard(
         shape = MaterialTheme.shapes.medium,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(Size.giant)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -227,8 +241,7 @@ fun CategoryEntryCard(entry: Entry) {
             ImageLoader(
                 url = entry.image,
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .wrapContentWidth()
+                    .size(Size.giant)
                     .clip(MaterialTheme.shapes.medium)
             )
 
@@ -239,13 +252,17 @@ fun CategoryEntryCard(entry: Entry) {
                 Text(
                     text = entry.name,
                     style = MaterialTheme.typography.h5,
-                    color = MaterialTheme.colors.onSurface
+                    color = MaterialTheme.colors.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Text(
-                    text = entry.locations.reduce { acc, location -> "$location, $acc" },
+                    text = entry.locations,
                     style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.onSurface
+                    color = MaterialTheme.colors.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }
@@ -256,7 +273,7 @@ fun CategoryEntryCard(entry: Entry) {
 @Composable
 fun CompendiumCategoryEntriesScreenPreview() {
     HyruleTheme(darkTheme = true) {
-        val entryPreview = Entry("Master Sword", "", listOf("Hyrule Field"))
+        val entryPreview = EntryModel("Master Sword", "", "Hyrule Field")
 
         CompendiumCategoryEntries(
             state = CompendiumCategoryEntriesState(

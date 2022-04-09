@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hyrule.design.scene.Async
 import com.hyrule.features.category.entries.domain.entity.Entry
 import com.hyrule.features.category.entries.domain.usecase.GetCategoryEntriesUseCase
+import com.hyrule.features.category.entries.presentation.model.EntryModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -44,7 +45,17 @@ class CompendiumCategoryEntriesViewModel(
     }
 
     private fun setLoadedEntries(entries: List<Entry>) {
-        _state.update { it.copy(entries = Async.Success(entries)) }
+        _state.update { it.copy(entries = Async.Success(entries.toEntryModel())) }
+    }
+
+    private fun List<Entry>.toEntryModel() = map {
+        EntryModel(
+            name = it.name,
+            image = it.image,
+            locations = if (it.locations.isEmpty()) "" else it.locations.reduce { acc, location ->
+                if (acc.isBlank()) location else "$acc, $location"
+            }
+        )
     }
 
     private fun setLoadingEntries() {

@@ -20,9 +20,13 @@ import com.hyrule.design.theme.HyruleTheme
 import com.hyrule.design.tokens.spacing.Spacing
 
 @Composable
-fun DefaultErrorScreen(message: String?, retry: () -> Unit) {
+fun DefaultErrorScreen(
+    message: String?,
+    retry: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(MaterialTheme.colors.background)
             .padding(Spacing.medium)
             .fillMaxSize(),
@@ -54,6 +58,6 @@ fun DefaultErrorScreen(message: String?, retry: () -> Unit) {
 @Composable
 fun DefaultErrorScreenPreview() {
     HyruleTheme(darkTheme = true) {
-        DefaultErrorScreen(null) {}
+        DefaultErrorScreen(null, {})
     }
 }
