@@ -32,9 +32,9 @@ open class ComposeUITest<R : Robot, A : RobotAssertion>(
     infix fun verifyThat(fn: A.() -> Unit): A =
         robotAssertion.apply(fn)
 
-    infix fun R.verifyThat(fn: A.() -> Unit): A =
+    infix fun R.andVerifyThat(fn: A.() -> Unit): A =
         robotAssertion.apply(fn)
 
-    infix fun A.andThen(fn: R.() -> Unit): R =
+    infix fun A.andWithRobot(fn: R.() -> Unit): R =
         robot.apply(fn)
 }
