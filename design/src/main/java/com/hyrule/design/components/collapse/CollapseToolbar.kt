@@ -47,21 +47,7 @@ private fun getToolbarHeight(
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val delta = available.y
                 val previous = offsetHeightPx.value
-                if (delta < 0) updateOffsetHeight(delta)
-                return Offset(x = 0f, y = -(previous - offsetHeightPx.value))
-            }
-
-            override fun onPostScroll(
-                consumed: Offset,
-                available: Offset,
-                source: NestedScrollSource
-            ): Offset {
-                return expandIfThereIsScrollLeft(available)
-            }
-
-            private fun expandIfThereIsScrollLeft(available: Offset): Offset {
-                val previous = offsetHeightPx.value
-                if (available.y > 0) updateOffsetHeight(available.y)
+                updateOffsetHeight(delta)
                 return Offset(x = 0f, y = -(previous - offsetHeightPx.value))
             }
 
