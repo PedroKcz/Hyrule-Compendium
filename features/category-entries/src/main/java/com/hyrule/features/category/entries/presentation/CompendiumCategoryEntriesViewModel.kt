@@ -2,6 +2,7 @@ package com.hyrule.features.category.entries.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hyrule.design.scene.Async
 import com.hyrule.features.category.entries.domain.entity.Entry
 import com.hyrule.features.category.entries.domain.usecase.GetCategoryEntriesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

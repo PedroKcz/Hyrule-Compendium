@@ -1,4 +1,4 @@
-package com.hyrule.features.category.entries.presentation
+package com.hyrule.design.scene
 
 sealed class Async<out T> {
     object Loading : Async<Nothing>()

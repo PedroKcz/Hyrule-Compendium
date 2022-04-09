@@ -35,8 +35,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.hyrule.design.components.collapse.CollapseToolbar
+import com.hyrule.design.scene.Async
 import com.hyrule.design.theme.HyruleTheme
-import com.hyrule.design.tokens.size.Size
+import com.hyrule.design.tokens.spacing.Spacing
 import com.hyrule.features.category.entries.R
 import com.hyrule.features.category.entries.domain.entity.Entry
 import com.hyrule.imageloader.ImageLoader
@@ -85,13 +86,13 @@ private fun CompendiumCategoryEntries(
         )
 
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(Size.medium),
+            verticalArrangement = Arrangement.spacedBy(Spacing.medium),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(top = subHeaderHeight)
                 .fillMaxSize()
                 .expandable(),
-            contentPadding = PaddingValues(Size.medium)
+            contentPadding = PaddingValues(Spacing.medium)
         ) {
 
         }
@@ -145,8 +146,8 @@ fun Banner(
                 painter = painterResource(id = com.hyrule.design.R.drawable.ic_baseline_arrow_back),
                 contentDescription = stringResource(R.string.navigate_back_content_description),
                 modifier = Modifier
-                    .padding(Size.medium)
-                    .clickable { onBackButtonClick() },
+                    .clickable { onBackButtonClick() }
+                    .padding(Spacing.medium),
                 tint = resolveColorFromCollapse(collapsePercentage)
             )
         }
@@ -171,7 +172,7 @@ private fun CategoryName(
     modifier: Modifier
 ) {
     val translationAmountPx = with(LocalDensity.current) {
-        Size.medium.times(2).roundToPx().toFloat()
+        Spacing.medium.times(2).roundToPx().toFloat()
     }
 
     Box(
@@ -180,8 +181,8 @@ private fun CategoryName(
             .background(
                 color = MaterialTheme.colors.background,
                 shape = RoundedCornerShape(
-                    topStart = Size.medium.times(1 - collapsePercentage),
-                    topEnd = Size.medium.times(1 - collapsePercentage)
+                    topStart = Spacing.medium.times(1 - collapsePercentage),
+                    topEnd = Spacing.medium.times(1 - collapsePercentage)
                 )
             )
     ) {
@@ -196,7 +197,7 @@ private fun CategoryName(
                 .graphicsLayer {
                     translationX = translationAmountPx.times(collapsePercentage)
                 }
-                .padding(all = Size.medium)
+                .padding(all = Spacing.medium)
         )
     }
 }
