@@ -5,6 +5,7 @@ import com.hyrule.features.category.entries.data.repository.CategoryEntriesRepos
 import com.hyrule.features.category.entries.data.source.local.EntryDatabase
 import com.hyrule.features.category.entries.data.source.local.LocalCategoryEntriesDataSource
 import com.hyrule.features.category.entries.data.source.remote.RemoteCategoryEntriesDataSource
+import com.hyrule.features.category.entries.data.source.remote.RemoteCategoryEntriesService
 import com.hyrule.features.category.entries.domain.repository.CategoryEntriesRepository
 import com.hyrule.features.category.entries.domain.usecase.GetCategoryEntriesUseCase
 import com.hyrule.features.category.entries.presentation.CompendiumCategoryEntriesViewModel
@@ -23,6 +24,7 @@ val compendiumCategoryEntriesModule = module {
 fun Module.dataModule() {
     factory { LocalCategoryEntriesDataSource(get()) }
     factory { RemoteCategoryEntriesDataSource(get()) }
+    factory { RemoteCategoryEntriesService(get()) }
     factory<CategoryEntriesRepository> {
         CategoryEntriesRepositoryImpl(get(), get(), Dispatchers.IO)
     }
