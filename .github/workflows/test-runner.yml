@@ -41,9 +41,6 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
 
-      - name: Assemble Tests
-        run: ./gradlew assembleAffectedAndroidTests -Paffected_module_detector.enable
-
       - name: Run All Affected Unit Tests
         run: ./gradlew runAffectedUnitTests -Paffected_module_detector.enable
 
