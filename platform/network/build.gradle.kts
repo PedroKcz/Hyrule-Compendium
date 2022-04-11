@@ -11,3 +11,7 @@ dependencies {
     testImplementation(Ktor.client.mock)
     testImplementation(Testing.junit4)
 }
+
+affectedTestConfiguration {
+    jvmTestTask = "test"
+}
