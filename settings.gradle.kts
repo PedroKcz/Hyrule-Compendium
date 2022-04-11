@@ -4,6 +4,11 @@ pluginManagement {
         google()
         mavenCentral()
     }
+    buildscript {
+        dependencies {
+            classpath("com.dropbox.affectedmoduledetector:affectedmoduledetector:0.1.4")
+        }
+    }
 }
 
 plugins {

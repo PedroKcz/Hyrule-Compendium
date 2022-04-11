@@ -1,3 +1,7 @@
+plugins {
+    id("com.dropbox.affectedmoduledetector")
+}
+
 buildscript {
     repositories {
         google()
@@ -9,11 +13,17 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
         classpath("org.jetbrains.kotlin:kotlin-serialization:_")
         classpath(AndroidX.navigation.safeArgsGradlePlugin)
-        classpath("com.dropbox.affectedmoduledetector:affectedmoduledetector:_")
     }
 }
 
-apply { plugin("com.dropbox.affectedmoduledetector") }
+affectedModuleDetector {
+    baseDir = "${project.rootDir}"
+    pathsAffectingAllModules = setOf("plugins/")
+    logFilename = "output.log"
+    logFolder = "${rootProject.buildDir}/affectedModuleDetector"
+    specifiedBranch = "develop"
+    compareFrom = "SpecifiedBranchCommit"
+}
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
