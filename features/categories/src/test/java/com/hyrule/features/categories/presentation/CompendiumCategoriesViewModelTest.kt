@@ -25,9 +25,10 @@ class CompendiumCategoriesViewModelTest : ViewModelTestTemplate<CompendiumCatego
 
     @Test
     fun `it should update state with categories`() {
-        given { every { useCase() } returns dummyCategories }
-
-        whenever { createViewModel() }
+        given {
+            every { useCase() } returns dummyCategories
+            createViewModel()
+        }
 
         assertStateSequence(CompendiumCategoriesState(dummyCategories))
     }

@@ -43,7 +43,7 @@ fun CompendiumCategoriesScreen(
 
     CompendiumCategories(
         state = state,
-        onCategoryClicked = { navController.navigate("categories") }
+        onCategoryClicked = { navController.navigate("category-entries/$it") }
     )
 }
 

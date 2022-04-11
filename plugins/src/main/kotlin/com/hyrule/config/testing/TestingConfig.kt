@@ -35,5 +35,7 @@ fun Project.implementIntegrationTesting() {
         androidTestImplementation("androidx.test:rules:_")
 
         androidTestImplementation("androidx.navigation:navigation-testing:_")
+
+        androidTestImplementation("io.mockk:mockk-android:_")
     }
 }

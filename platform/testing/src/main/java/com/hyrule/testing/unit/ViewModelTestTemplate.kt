@@ -24,10 +24,6 @@ open class ViewModelTestTemplate<T> {
         stateSource = state
     }
 
-    fun runTest(test: TestScope.() -> Unit) {
-        rule.scope.test()
-    }
-
     fun given(given: TestScope.() -> Unit) {
         this.given = { rule.scope.given() }
     }
@@ -39,11 +35,10 @@ open class ViewModelTestTemplate<T> {
     fun assertStateSequence(vararg states: T) = rule.scope.runTest {
         given()
 
-        whenever()
-
         val results = mutableListOf<T>()
-
         val job = launch { stateSource().toList(results) }
+
+        whenever()
 
         job.cancel()
 

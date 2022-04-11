@@ -33,9 +33,11 @@ include(":app")
 
 include(":features")
 include(":features:categories")
+include(":features:category-entries")
 
 include(":design")
 
 include(":platform")
 include(":platform:network")
 include(":platform:testing")
+include(":platform:imageloader")
