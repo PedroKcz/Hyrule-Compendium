@@ -159,7 +159,7 @@ fun Banner(
         }
 
         Surface(
-            shape = RoundedCornerShape(50),
+            shape = RoundedCornerShape(percent = 50),
             color = Color.Transparent
         ) {
             Icon(
