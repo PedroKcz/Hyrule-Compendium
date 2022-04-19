@@ -41,14 +41,14 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
 
-      - name: Run All Unit Tests
-        run: ./gradlew test
+      - name: Run All Affected Unit Tests
+        run: ./gradlew runAffectedUnitTests -Paffected_module_detector.enable
 
-      - name: run tests
+      - name: Run All Affected Android Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 27
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedCheck
+          script: ./gradlew runAffectedAndroidTests -Paffected_module_detector.enable
