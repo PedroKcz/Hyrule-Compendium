@@ -6,7 +6,7 @@ pluginManagement {
     }
     buildscript {
         dependencies {
-            classpath("com.dropbox.affectedmoduledetector:affectedmoduledetector:0.1.4")
+            classpath("com.dropbox.affectedmoduledetector:affectedmoduledetector:0.1.5")
         }
     }
 }
